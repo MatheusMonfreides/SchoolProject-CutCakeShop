@@ -70,7 +70,10 @@
             <p >Total do pedido: </p>
             <p>R$ {{total_carrinho}}</p>
         </div>
-        <a href="{% url 'enderecos_entrega' %}" value="Avançar">Avançar</a>
+        <div class="btn-avancar">
+            <a href="{% url 'enderecos_entrega' %}" value="Avançar">Avançar</a>
+        </div>
+        
     </div>
     {% else %}
     <br>

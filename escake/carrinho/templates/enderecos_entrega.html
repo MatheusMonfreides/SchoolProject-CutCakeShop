@@ -21,42 +21,46 @@
 </div>
 {% endfor %}
 {% endif %}
+
 <form method="POST" action="{% url 'salvarretirada' %}">
     {% csrf_token %}
-<div class="enderecos-entrega-container">
-    <div id="opcoes">
-        <div {% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}class="selected"{% endif %}>
-            <input type="radio" name="entregar_retirar" id="entregar" class="desabilita" value="0" {% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}checked{% endif %}><label>Entregar</label>
+    <div class="enderecos-entrega-container">
+        <div id="opcoes">
+            <div {% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}class="opcao selected"{% else %}class="opcao"{% endif %}>
+                <input type="radio" name="entregar_retirar" id="entregar" class="desabilita" value="0" {% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}checked{% endif %}>
+                <label for="entregar">Entregar</label>
+            </div>
+            <div {% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %}class="opcao selected"{% else %}class="opcao"{% endif %}>
+                <input type="radio" name="entregar_retirar" id="retirarloja" class="desabilita" value="1" {% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %}checked{% endif %}>
+                <label for="retirarloja">Retirar na loja</label>
+            </div>
         </div>
-        <div {% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %} class="selected"{% endif %}>
-            <input type="radio" name="entregar_retirar" id="retirarloja" class="desabilita" value="1" {% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %}checked{% endif %}><label>Retirar na loja</label>
-        </div>
-    </div>
-    <div id="corpo">
-        <div id="enderecos" {% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %}class="desabilita"{% endif %}>
-            {% for endereco in enderecos %}
-                <div class="endereco" class="form-group">
-                    <div class="option" lass="btn-group">
+
+        <div id="corpo">
+            <div id="enderecos" class="{% if opcao_entrega and opcao_entrega.OpcaoSelecionada == 1 %}desabilita{% endif %}">
+                {% for endereco in enderecos %}
+                    <div class="endereco">
                         <input type="radio" name="endereco" value="{{endereco.id}}" class="endereco-radio" {% if opcao_entrega and opcao_entrega.EnderecoCodigo.id == endereco.id %}checked{% endif %}>
+                        <div class="dados-endereco">
+                            <p class="rua">Rua {{endereco.rua}}</p>
+                            <p class="local">{{endereco.cidade}}, {{endereco.get_estado_display}}, CEP: {{endereco.cep}}</p>
+                            <p class="local">Número {{endereco.numero}}, {{endereco.complemento}}</p>
+                        </div>
                     </div>
-                    <div class="dados-endereco">
-                        <label class="rua">Rua {{endereco.rua}}</label>
-                        <label class="local">{{endereco.cidade}}, {{endereco.get_estado_display}}, CEP: {{endereco.cep}}</label>
-                        <label class="local">Numero {{endereco.numero}}, {{endereco.complemento}}</label>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+
+            <div id="retirada" class="{% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}desabilita{% endif %}">
+                <p class="local retirada">Deverá se dirigir à loja Cut Cake Shop para retirar seu produto.</p>
+                <p class="local retirada">Endereço da loja:</p>
+                <p class="local retirada">Rua Marechal Deodoro, número 543, ao lado da praça das Ilusões.</p>            
+            </div>
         </div>
-        <div id="retirada" {% if not opcao_entrega or opcao_entrega.OpcaoSelecionada == 0 %}class="desabilita"{% endif %}>
-            <label class="local retirada">Deverá se direcionar a loja EsCake para retirar seu produto</label>
-            <label class="local retirada">Endereço da loja:</label>
-            <label class="local retirada">Rua marechal deodoro, numero 543, ao lado da praça das ilusoes.</label>            
-        </div>
+
         <div id="action">
-            <input class="button-actions" type="submit" value="Avancar">
+            <button type="submit" class="button-actions">Avançar</button>
         </div>
     </div>
-</div>
 </form>
 {% block 'javascript' %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

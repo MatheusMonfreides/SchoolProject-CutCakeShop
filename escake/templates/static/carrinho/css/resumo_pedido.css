@@ -1,45 +1,94 @@
-#myProgress {
-    width: 100%;
-    border: 1px solid;
-    height: 26px;
-    background-color: #ddd;
-    margin-top: 0px;
+.resumo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
 }
 
-#myBar {
-    width: 10%;
-    height: 24px;
-    background-color: #00ff57;
-    margin-top: 0px;
+.resumo-produtos, .resumo-dados {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    width: 48%; /* 48% para garantir que ambos ocupem metade da largura */
 }
-.dados-pedido {
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e91e63;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.produto-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.produto-imagem {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+}
+
+.produto-detalhes {
     display: flex;
     flex-direction: column;
-    width: 82%;
-    margin-left: 31px;
-    font-size: 20px;
+    gap: 5px;
 }
 
-.status {
-    display: flex;
-}
-
-.pedido-id{
+.produto-nome {
     font-weight: bold;
-    font-size: 30px;
-}
-div#myProgress {
-    margin-left: 15px;
+    font-size: 1.2em;
 }
 
-label.descricao-status {
-    padding-left: 69px;
+.resumo-total {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: right;
 }
 
-.imgBlur {
-    filter: blur(3px) !important;
+.caixa {
+    background-color: #e7e7e7;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #333;
+    margin-bottom: 20px;
 }
 
-div.tachar label {
-    text-decoration: line-through;
+.button-actions {
+    width: 100%;
+    background-color: #e91e63;
+    color: white !important;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.button-actions:hover {
+    background-color: #ffa7c5;
+}
+
+.resumo-action {
+    display: flex;
+    margin-top: 20px;
+}
+
+.resumo-dados p, .resumo-dados .caixa p {
+    margin: 0;
+    font-size: 1.1em;
 }

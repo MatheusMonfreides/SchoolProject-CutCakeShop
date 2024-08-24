@@ -1,70 +1,85 @@
-#myProgress {
-    width: 100%;
-    border: 1px solid;
-    height: 26px;
-    background-color: #ddd;
-}
-
-#myBar {
-    width: 10%;
-    height: 24px;
-    background-color: #00ff57;
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
 }
 
 .pedido-card {
     display: flex;
     justify-content: space-between;
+    background-color: #f9f9f9;
     margin-bottom: 20px;
-    width: 100%;
-    box-shadow: inset 0px -100px 100px -62px rgba(0,0,0,0.1);
-    padding-bottom: 16px;
-    align-items: center;
-}
-.dados {
-    display: flex;
-    flex-direction: column;
-    width: 82%;
-    margin-left: 31px;
-}
-.acao {
-    width: 10%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.status {
-    display: flex;
-}
-div#myProgress {
-    margin-left: 15px;
-}
-.cancela-pedido {
-    width: 56px;
-}
-
-label {
-    margin: 0 !important;
-    font-size: 19px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
     cursor: pointer;
 }
-label.descricao-status {
-    padding-left: 69px;
+
+.pedido-card:hover {
+    transform: scale(1.02);
 }
 
-.pedido-id{
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.2em;
 }
 
-div.tachar label {
-    text-decoration: line-through;
+.pedido-status {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.progress {
+    height: 20px;
+    background-color: #00ff57;
+    border-radius: 4px;
+}
+
+.descricao-status {
+    font-size: 1em;
+    color: #666;
+}
+
+.acao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancela-pedido {
+    width: 40px;
+    height: 40px;
 }
 
 .imgBlur {
-    filter: blur(5px) !important;
+    filter: blur(5px);
+    cursor: not-allowed;
 }
 
-.pedido-card>a {
-    width: 82%;
-    cursor: pointer;
+.tachar .pedido-header, .tachar .descricao-status {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.pedido-id {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.pedido-quantidade {
+    font-size: 1em;
+    margin-left: 10px;
 }

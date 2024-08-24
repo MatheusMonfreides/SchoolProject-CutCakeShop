@@ -11,114 +11,86 @@
 
 {% block 'body' %}
 
-<div class="centered-text">
-    Resumo da compra
-</div>
-
-{% if messages %}
-{% for message in messages %}
-<div class="alert {{message.tags}}" id="message">
-    {{message}}
-</div>
-{% endfor %}
-{% endif %}
-
-    <div class="container">
-        <div class="container-dados">
-            <div class="dados">
-                <div class="endereco_entrega">
-                    <p>Endereço e Entrega</p>
-                    <div class="caixa">
-                        {% if opcao_entrega.OpcaoSelecionada == 0 %}
-                            <label class="rua">Rua {{opcao_entrega.EnderecoCodigo.rua}}</label>
-                            <label class="endereco">{{opcao_entrega.EnderecoCodigo.cidade}}, {{opcao_entrega.EnderecoCodigo.get_estado_display}}, CEP: {{opcao_entrega.EnderecoCodigo.cep}}</label>
-                            <label class="endereco">Numero {{opcao_entrega.EnderecoCodigo.numero}}, {{opcao_entrega.EnderecoCodigo.complemento}}</label>
-                        {%else%}
-                            <label class="local retirada">Deverá se direcionar a loja EsCake para retirar seu produto</label>
-                            <label class="local retirada">Endereço da loja:</label>
-                            <label class="local retirada">Rua marechal deodoro, numero 543, ao lado da praça das ilusoes.</label>         
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="pagamento">
-                    <p>Pagamento</p>
-                    <div class="caixa">
-                        <label>Pagamento escolhido: {% if opcao_pagamento.OpcaoSelecionada == 0 %}Boleto{%else%}Pix{% endif %}</label>
-                        {% if opcao_pagamento.OpcaoSelecionada == 0 %}
-                            <label>Após avançar a etapa será encaminhado o boleto para o seu e-mail</label>
-                        {%else%}
-                            <label>Após finalizar a compra o qrcode do pix será exibido em um pop-up</label>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="dados_recebedor">
-                    <p>Dados do recebedor</p>
-                    <div class="caixa">
-                        <label class="recebedor">Nome: {{user.username}}</label>
-                        <br>
-                        <label class="recebedor">Telefone: {{user.telefone}}</label>
-                        <br>
-                        <label class="recebedor">E-mail: {{user.email}}</label>
-                    </div>
-                </div>
-                <div class="dados_recebedor {% if pedido.Cancelado == True %} tachar {% endif %}">
-                    <p>Status do pedido</p>
-                    <div class="">
-                        <div class="dados-pedido">
-                            <label class="pedido-id">Pedido: #{{pedido.id}}</label>
-                            <label>Quantidade: {{pedido.CarrinhoCodigo.itens.count}}</label>
-                            <div class="status">
-                                <label>Status:</label>
-                                <div id="myProgress">
-                                    <div id="myBar" style="width: {{pedido.PorcentagemPedido}}%;"></div>
-                                  </div>
-                            </div>
-                            {% if pedido.Cancelado == True %}
-                                <label class="descricao-status">Pedido Cancelado</label>
-                            {% elif pedido.PorcentagemPedido <= 40 %}
-                                <label class="descricao-status">Pedido em preparação</label>
-                            {% elif pedido.PorcentagemPedido > 40 and pedido.PorcentagemPedido <= 60  %}
-                                <label class="descricao-status">Pedido pronto</label>
-                            {% elif pedido.PorcentagemPedido > 60 and pedido.PorcentagemPedido <= 90  %}
-                                <label class="descricao-status">Pedido a caminho</label>
-                            {% elif pedido.PorcentagemPedido > 90 %}
-                                <label class="descricao-status">Pedido entregue</label>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            
+<div class="resumo-container">
+    <div class="resumo-produtos">
+        <h2>Resumo dos Produtos</h2>
+        {% for produto_carrinho in itens_carrinho %}                
+        <div class="produto-card">
+            {% with produto_carrinho.ProdutoCodigo.imagens.all|first as imagem %}
+                {% if imagem %}
+                    <img class="produto-imagem" src="{{ imagem.imagem.url }}" alt="Imagem do Produto">
+                {% endif %}
+            {% endwith %}
+            <div class="produto-detalhes">
+                <p class="produto-nome">{{produto_carrinho.ProdutoCodigo.ProdutoNome}}</p>
+                <p>Quantidade: {{produto_carrinho.Quantidade}}</p>
+                <p>Total do item: R$ {{ produto_carrinho.total_por_produto  }}</p>
+            </div>
         </div>
-        <div id="container-produtos" >
-            <div class="produtos">
-                {% for produto_carrinho in itens_carrinho %}                
-                <div class="produto-item">
-                    {% with produto_carrinho.ProdutoCodigo.imagens.all|first as imagem %}
-                        {% if imagem %}
-                            <img class="img-prod" src="{{ imagem.imagem.url }}" alt="Imagem do Produto">
-                        {% endif %}
-                    {% endwith %}
-                    <div>
-                        <label class="nome-produto">{{produto_carrinho.ProdutoCodigo.ProdutoNome}}</label>
-                    </div>
-                    <div>
-                        <label>Quantidade: {{produto_carrinho.Quantidade}}</label>
-                    </div>
-                    <div>
-                        <label>Total do item: R$ {{ produto_carrinho.total_por_produto  }}</label>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <div id="total">
-                <label>Total do pedido: R$ {{total_pedido}}</label>
-                <div id="action" style="align-items: center;">
-                    <a class="button-actions {% if pedido.Cancelado == True or pedido.PorcentagemPedido > 40 %} imgBlur {% endif %}" {% if pedido.Cancelado == False and pedido.PorcentagemPedido <= 40 %} href="{% url 'cancelapedido' pedido.id %}" {% endif %} >Cancelar pedido</a>
-                </div> 
-            </div>
+        {% endfor %}
+        <div class="resumo-total">
+            <p>Total do pedido: R$ {{total_pedido}}</p>
         </div>
     </div>
+
+    <div class="resumo-dados">
+        <div class="dados">
+            <div class="endereco_entrega">
+                <h2>Endereço e Entrega</h2>
+                <div class="caixa">
+                    {% if opcao_entrega.OpcaoSelecionada == 0 %}
+                        <p class="rua">Rua {{opcao_entrega.EnderecoCodigo.rua}}</p>
+                        <p class="endereco">{{opcao_entrega.EnderecoCodigo.cidade}}, {{opcao_entrega.EnderecoCodigo.get_estado_display}}, CEP: {{opcao_entrega.EnderecoCodigo.cep}}</p>
+                        <p class="endereco">Número {{opcao_entrega.EnderecoCodigo.numero}}, {{opcao_entrega.EnderecoCodigo.complemento}}</p>
+                    {% else %}
+                        <p class="local retirada">Deverá se dirigir à loja Cut Cake Shop para retirar seu produto.</p>
+                        <p class="local retirada">Endereço da loja:</p>
+                        <p class="local retirada">Rua Marechal Deodoro, número 543, ao lado da praça das Ilusões.</p>         
+                    {% endif %}
+                </div>
+            </div>
+            <div class="pagamento">
+                <h2>Pagamento</h2>
+                <div class="caixa">
+                    <p>Pagamento escolhido: {% if opcao_pagamento.OpcaoSelecionada == 0 %}Boleto{% else %}Pix{% endif %}</p>
+                    {% if opcao_pagamento.OpcaoSelecionada == 0 %}
+                        <p>Após avançar a etapa, o boleto será encaminhado para o seu e-mail.</p>
+                    {% else %}
+                        <p>Após finalizar a compra, o QR code do Pix será exibido em um pop-up.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="dados_recebedor">
+                <h2>Dados do Recebedor</h2>
+                <div class="caixa">
+                    <p class="recebedor">Nome: {{user.username}}</p>
+                    <p class="recebedor">Telefone: {{user.telefone}}</p>
+                    <p class="recebedor">E-mail: {{user.email}}</p>
+                </div>
+            </div>
+        </div> 
+        <div class="resumo-action">
+            <div class="dados_recebedor {% if pedido.Cancelado == True %} tachar {% endif %}">
+                <p>Status do pedido</p>
+                {% if pedido.Cancelado == True %}
+                <label class="descricao-status">Pedido Cancelado</label>
+                {% elif pedido.PorcentagemPedido <= 40 %}
+                <label class="descricao-status">Pedido em preparação</label>
+                {% elif pedido.PorcentagemPedido > 40 and pedido.PorcentagemPedido <= 60  %}
+                <label class="descricao-status">Pedido pronto</label>
+                {% elif pedido.PorcentagemPedido > 60 and pedido.PorcentagemPedido <= 90  %}
+                <label class="descricao-status">Pedido a caminho</label>
+                {% elif pedido.PorcentagemPedido > 90 %}
+                <label class="descricao-status">Pedido entregue</label>
+                {% endif %}
+            </div>
+            <div>
+                <a class="button-actions {% if pedido.Cancelado == True or pedido.PorcentagemPedido > 40 %} imgBlur {% endif %}" {% if pedido.Cancelado == False and pedido.PorcentagemPedido <= 40 %} href="{% url 'cancelapedido' pedido.id %}" {% endif %} >Cancelar pedido</a>
+            </div>
+        </div> 
+    </div>
+</div> 
+
 {% block 'javascript' %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

@@ -7,16 +7,31 @@
 .favoritos-card {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
   width: 80%;
-  box-shadow: inset 0px -100px 100px -62px rgba(0,0,0,0.1);
-  padding-bottom: 16px;
+  background-color: rgb(250, 217, 223);
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  overflow: hidden;
 }
 
-.favoritos-card img {
-  width: 200px;
-  height: 155px;
-  float: left;
+.favoritos-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.favoritos-image {
+  flex-shrink: 0;
+}
+
+.favoritos-card img.img-prod {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .favoritos-container-descricao {
@@ -24,7 +39,20 @@
   flex-direction: column;
   margin-left: 20px;
   justify-content: center;
-  padding-left: 20px;
+  flex-grow: 1;
+}
+
+.favoritos-prod-nome {
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+}
+
+.favoritos-prod-descricao {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
 }
 
 .favoritos-actions {
@@ -32,24 +60,15 @@
   align-items: center;
 }
 
-.favoritos-prod-descricao {
-  font-size: 20px;
-  text-align: left;
-}
-
-.favoritos-line-price-actions {
-  display: flex;
-  align-items: center;
-}
-
-.favoritos-prod-preco {
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .favoritos-actions img {
-  width: 86px;
-  height: 86px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.favoritos-actions img:hover {
+  transform: scale(1.1);
 }
 
 

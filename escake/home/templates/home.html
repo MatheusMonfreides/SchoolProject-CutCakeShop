@@ -13,6 +13,7 @@
   <form method="POST" action="{% url 'search' %}">{% csrf_token %}
     <input type="text" placeholder="Pesquisar" name="search">
     <img src="{% static 'home/img/Search_Gray.png' %}">
+    <button type="submit">Buscar</button>
   </form>
 </div>
 

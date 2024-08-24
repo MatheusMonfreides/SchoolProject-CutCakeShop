@@ -24,30 +24,33 @@
 {% endif %}
 
 <div class="favoritos-container">
-    {% if produtos%}
-    {% for produto in produtos %}
-    <div class="favoritos-card">
-        <div>
-            {% with produto.imagens.all|first as imagem %}
-                {% if imagem %}
-                    <img class="img-prod" src="{{ imagem.imagem.url }}" alt="Imagem do Produto">
-                {% endif %}
-            {% endwith %}
-            <div class="favoritos-container-descricao">
-                <p class="favoritos-prod-nome">{{ produto.ProdutoNome }}</p>
-                <p class="favoritos-prod-descricao">{{ produto.ProdutoDescricao }}</p>
+    {% if produtos %}
+        {% for produto in produtos %}
+        <div class="favoritos-card">
+            <div class="favoritos-content">
+                <div class="favoritos-image">
+                    {% with produto.imagens.all|first as imagem %}
+                        {% if imagem %}
+                            <img class="img-prod" src="{{ imagem.imagem.url }}" alt="Imagem do Produto">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="favoritos-container-descricao">
+                    <p class="favoritos-prod-nome">{{ produto.ProdutoNome }}</p>
+                    <p class="favoritos-prod-descricao">{{ produto.ProdutoDescricao }}</p>
+                </div>
+            </div>
+            <div class="favoritos-actions">
+                <a href="{% url 'removefavorito' produto.ProdutoCodigo %}">
+                    <img src="{% static 'favoritos/img/deleted.png' %}" alt="Remover Favorito">
+                </a>
             </div>
         </div>
-        <div class="favoritos-actions">
-            <a href="{% url 'removefavorito' produto.ProdutoCodigo %}">
-                <img src="{% static 'favoritos/img/deleted.png' %}">
-            </a>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     {% else %}
-    <br>
-    <h1>Nenhum favorito adicionado!</h1>
+        <br>
+        <h1>Nenhum favorito adicionado!</h1>
     {% endif %}
 </div>
+
 {% endblock %}
