@@ -7,5 +7,7 @@ urlpatterns = [
     
     path('add_endereco/<int:endereco_id>/', views.endereco_view, name='add_endereco'),
     path('get_cidades/<str:uf>/', views.get_cidades, name='get_cidades'),
-    path('salvarPerfil/<int:perfil_id>/', views.salvarperfil, name='salvarPerfil')
+    path('salvarPerfil/<int:perfil_id>/', views.salvarperfil, name='salvarPerfil'),
+
+    path('logout/', views.logout_view, name='logout')
 ]

@@ -11,54 +11,41 @@
     </head>
     <body>
         {% if user.is_authenticated %}
-        <nav class="navbar navbar-expand-lg navbar-dark bg_navbar">
-            
+        <nav class="navbar navbar-expand-lg navbar-dark bg_navbar justify-content-between">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img width="60" src="{% static 'login/img/CuteCakeShopLogoHome.png' %}">
             </a>
-            <div id="title">
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    <h3 class="font_logo">Cut Cake Shop</h3>
-                </a>
+            
+            <div class="navbar-brand mx-auto">
+                <h3 class="font_logo text-center">Cut Cake Shop</h3>
             </div>
-            <div id="actions">
-                <div class="box-icons">
+
+            <div id="actions" class="d-flex align-items-center">
+                <div class="box-icons position-relative">
                     <a class="navbar-brand" href="{% url 'favoritos' %}">
                         <img width="40" src="{% static 'base/img/favorite_icon.png' %}">
                         <div class="qtd_icons" id="qtd_favorite">{{ qtd_favorite }}</div>
                     </a>
                 </div>
-                <div class="box-icons">
-                <a class="navbar-brand" href="{% url 'carrinho' %}">
-                    <img width="40" src="{% static 'base/img/car_icon.png' %}">
-                    <div class="qtd_icons" id="qtd_carrinho">{{ qtd_cart }}</div>                    
-                </a>
+                <div class="box-icons position-relative mx-3">
+                    <a class="navbar-brand" href="{% url 'carrinho' %}">
+                        <img width="40" src="{% static 'base/img/car_icon.png' %}">
+                        <div class="qtd_icons" id="qtd_carrinho">{{ qtd_cart }}</div>                    
+                    </a>
+                </div>
+                <div class="box-icons position-relative">
+                    <a class="navbar-brand" href="{% url 'perfil' %}">
+                        <img width="40" src="{% static 'base/img/person_icon.png' %}">
+                    </a>
+                </div>
             </div>
-                <a class="navbar-brand" href="{% url 'perfil' %}">
-                    <img width="40" src="{% static 'base/img/person_icon.png' %}">
-                </a>
-            </div>
-            <!--
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarNav" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        
-                    </li>
-                </ul>
-            </div>-->
         </nav>
-        
         {% endif %}
+        
         {% block 'body' %}{% endblock %}
+        
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript">
             setTimeout(function() {

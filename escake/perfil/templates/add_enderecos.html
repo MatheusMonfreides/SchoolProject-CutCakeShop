@@ -3,13 +3,14 @@
 
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
-<link rel="stylesheet" href="{% static 'perfil/css/add_endereco.css' %}">  <!-- Adicione o CSS do seu novo aplicativo aqui -->
+<link rel="stylesheet" href="{% static 'perfil/css/add_endereco.css' %}">
 {% endblock %}
 
 {% block 'body' %}
 <div class="centered-text">
     Endereço
 </div>
+
 {% if messages %}
 {% for message in messages %}
 <div class="alert {{message.tags}}" id="message">
@@ -55,11 +56,10 @@
                 <div id="complemento">
                     <label>Complemento:</label>                    
                     <textarea name="complemento" id="id_complemento" cols="30" rows="5" maxlength="255">{{ form.complemento.value }}</textarea>
-                    
                 </div>
             </div>            
         </div>            
-        <input class="button-actions" type="submit" value="Salvar endereco">
+        <input class="button-actions" type="submit" value="Salvar endereço">
     </form>
 </div>
 {% block 'javascript' %}
@@ -86,18 +86,12 @@ $(document).ready(function() {
         });
     }
     if($('#id_estado')[0].value != ''){
-        //chama a function buscaCidades
         buscaCidades($('#id_cidade')[0].getAttribute('value-selected'));
     }
     $('#id_estado').change(function() {
         buscaCidades('');
     });
-
-    
-    
 });
 </script>
 {% endblock %}
 {% endblock %}
-
-

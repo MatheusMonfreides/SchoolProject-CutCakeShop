@@ -17,50 +17,35 @@
 {% endif %}
 <br>
 <br>
-<div class="produto-container">
+<div class="produto-card">
     {% if produto%}
-        <div class="imagens">
-            <div class="produto-imagem-principal">
-                {% with produto.imagens.all|first as imagem %}
-                    {% if imagem %}
-                        <img src="{{ imagem.imagem.url }}" alt="Imagem principal do produto">
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <div class="produto-imagens-secundarias">
-                {% for imagem in produto.imagens.all|slice:"1:" %}
-                    <img src="{{ imagem.imagem.url }}" alt="Imagem secundária do produto">
-                {% endfor %}
-            </div>
-        </div>
-        <div class="produto-descricao">
-            <div>
-                <h1>{{ produto.ProdutoNome }}</h1>
-                <p>{{ produto.ProdutoDescricao }}</p>
-            </div>
-            <div class="actions_detalhes">
-                <p>R$ {{ produto.ProdutoValor }}</p>
-                
-                <div class="forms">
-                    <form action="/addfavorito/{{ produto.ProdutoCodigo }}" method="post">
-                        {% csrf_token %}
-                        <input class="button" type="submit" value="Favoritar">
-                        <a href="/addfavorito/{{ produto.ProdutoCodigo }}">
-                            <img src="{% static 'detalhesproduto/img/add_favorite_black_icon.png' %}">
-                        </a>
-                    </form>
-                    <form action="/addCarrinho/{{ produto.ProdutoCodigo }}" method="post">
-                        {% csrf_token %}
-                        <input class="button" type="submit" value="Carrinho">
-                        <a href="/addCarrinho/{{ produto.ProdutoCodigo }}">
-                            <img src="{% static 'detalhesproduto/img/add_car_icon_black_icon.png' %}">
-                        </a>
-                    </form>
-                </div>
-                
-            </div>
-        </div>
+        <div class="produto-imagem">
+            {% with produto.imagens.all|first as imagem %}
+            {% if imagem %}
+                <img src="{{ imagem.imagem.url }}" alt="Imagem principal do produto">
+            {% else %}
+                <img src="default-image-url.jpg" alt="Imagem padrão do produto">
+            {% endif %}
+        {% endwith %}
         
+        </div>
+        <div class="produto-detalhes">
+            <h1>{{ produto.ProdutoNome }}</h1>
+            <p>{{ produto.ProdutoDescricao }}</p>
+            <div class="produto-preco">
+                <p>R$ {{ produto.ProdutoValor }}</p>
+            </div>
+            <div class="produto-acoes">
+                <form action="/addfavorito/{{ produto.ProdutoCodigo }}" method="post">
+                    {% csrf_token %}
+                    <button class="button-actions">Favoritar</button>
+                </form>
+                <form action="/addCarrinho/{{ produto.ProdutoCodigo }}" method="post">
+                    {% csrf_token %}
+                    <button class="button-actions">Carrinho</button>
+                </form>
+            </div>
+        </div>
     {% else %}
     <br>
     <h1>Produto não encontrado!</h1>

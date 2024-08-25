@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .endereco-info {
@@ -12,21 +13,23 @@
 .endereco-info-group {
     display: flex;
     justify-content: space-between;
-}
-
-.endereco-info-group div {
-    width: 45%;
     margin-bottom: 20px;
 }
 
-.endereco-info-group div input,select,textarea {
+.endereco-info-group div {
+    width: 48%;
+}
+
+.endereco-info-group div input, 
+.endereco-info-group div select, 
+.endereco-info-group div textarea {
     width: 100%;
     border-radius: 10px;
     font-size: 20px;
-    FONT-WEIGHT: BOLD;
+    font-weight: bold;
     padding-left: 14px;
     background-color: #e7e7e7;
-    border: 2px solid;
+    border: 2px solid #ccc;
 }
 
 label {
@@ -41,18 +44,16 @@ div#complemento {
 }
 
 .button-actions {
-    text-decoration: none !important;
     text-decoration: none;
-    color: inherit !important;
-    padding: 12px 21px 12px 21px;
+    color: white;
+    padding: 12px 21px;
     display: inline-block;
-    margin-left: 5px;
-    border: 1px solid white;
-    background-color: #957038;
+    margin-top: 20px;
+    border: none;
+    background-color: #e91e63;
     font-size: 25px;
     font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
 }
-input.button-actions {
-    float: right;
-}
-

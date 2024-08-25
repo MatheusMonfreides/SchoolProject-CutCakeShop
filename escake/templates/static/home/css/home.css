@@ -68,7 +68,7 @@ div#actions{
 }
 
 .container-descricao {
-    background-color: hotpink;
+    background-color: #e91e63;
     padding: 10px;
     display: flex;
     flex-direction: column;

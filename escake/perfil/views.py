@@ -6,6 +6,8 @@ import requests
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.messages import constants
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 def perfil(request):
     user = CustomUser.objects.filter(email=request.user.email).first()
@@ -67,6 +69,10 @@ def salvarperfil(request, perfil_id):
             messages.add_message(request, constants.ERROR,
                              'Falha ao tentar atualizar o usuário, favor tente novamente!')
     return redirect('perfil') 
+
+def logout_view(request):
+    logout(request)
+    return redirect('/login/logar/?next=/')
         
 
         

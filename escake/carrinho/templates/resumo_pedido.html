@@ -71,7 +71,7 @@
         </div> 
         <div class="resumo-action">
             <div class="dados_recebedor {% if pedido.Cancelado == True %} tachar {% endif %}">
-                <p>Status do pedido</p>
+                <p>Status do pedido:</p>
                 {% if pedido.Cancelado == True %}
                 <label class="descricao-status">Pedido Cancelado</label>
                 {% elif pedido.PorcentagemPedido <= 40 %}
@@ -84,7 +84,7 @@
                 <label class="descricao-status">Pedido entregue</label>
                 {% endif %}
             </div>
-            <div>
+            <div class="cancelar-pedido">
                 <a class="button-actions {% if pedido.Cancelado == True or pedido.PorcentagemPedido > 40 %} imgBlur {% endif %}" {% if pedido.Cancelado == False and pedido.PorcentagemPedido <= 40 %} href="{% url 'cancelapedido' pedido.id %}" {% endif %} >Cancelar pedido</a>
             </div>
         </div> 

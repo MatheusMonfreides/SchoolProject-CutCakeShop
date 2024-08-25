@@ -75,12 +75,17 @@
             </div>
             <div class="perfil-acoes">
                 <div id="btn-novo-endereco">
-                    <a class="button-actions btn-sairconta" href="{% url 'endereco' 0 %}" >
+                    <a class="button-actions btn-sairconta" href="{% url 'logout' %}" onclick="clearCacheAndLogout(); return false;">
                         Sair da conta
                     </a>
                 </div>
                 <div>
                     <input class="button-actions btn-salvarPerfil" type="submit" value="Salvar Perfil">                    
+                </div>
+                <div id="btn-novo-endereco">
+                    <a class="button-actions btn-meusPedidos" href="/carrinho/pedidos">
+                        Meus Pedidos
+                    </a>
                 </div>
                 <div id="btn-novo-endereco">
                     <a class="button-actions" href="{% url 'endereco' 0 %}" >
@@ -96,4 +101,16 @@
     {% endif %}
 </div>
 </form>
+<script>
+function clearCacheAndLogout() {
+    if ('caches' in window) {
+        caches.keys().then(function (names) {
+            for (let name of names) caches.delete(name);
+        });
+    }
+    setTimeout(function() {
+        window.location.href = "{% url 'logout' %}";
+    }, 300);
+}
+</script>
 {% endblock %}
